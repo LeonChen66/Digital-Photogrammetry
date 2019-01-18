@@ -1,0 +1,17 @@
+[x,y]=meshgrid(1:100:1920,1:100:1280);
+k1 = 6.107*10^(-4);
+k2 = (-1.35)*10^(-6);
+x_bar = (x-960.5)*11.8*10^(-3);
+y_bar = (y-640.5)*11.8*10^(-3);
+d_square=x_bar.^2+y_bar.^2;
+x_delta = (x_bar.*d_square*k1+x_bar.*d_square.^(2)*k2)/(11.8*10^(-3));
+y_delta = (y_bar.*d_square*k1+y_bar.*d_square.^(2)*k2)/(11.8*10^(-3));
+r = sqrt(x_delta.^2+y_delta.^2);
+contour(x,y,r,'showtext','on','EdgeColor','k');
+hold on;
+axis equal;
+axis([-80,2000,-50,1300]);
+title('radial lens distortion');
+xlabel('x(pixel)');
+ylabel('y(pixel)');
+quiver(x,y,x_delta,y_delta);
